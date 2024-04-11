@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Charts Example</title>
+  <!-- Incluir la librería Google Charts -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+  <!-- Elemento donde se mostrará el gráfico circular -->
+  <div id="piechart"></div>
+  
+  <!-- Elemento donde se mostrará el gráfico de barras -->
+  <div id="barchart"></div>
+
+  <script>
+    // Cargar la librería Google Charts
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawCharts);
+
+    // Función para estructurar los datos y dibujar los gráficos
+    function drawCharts() {
+      // Datos en formato JSON
+      var jsonData = [
+        {
+          "code": "001",
+          "name": "Laptop",
+          "value": 1200
+        },
+        {
+          "code": "002",
+          "name": "Smartphone",
+          "value": 800
+        },
+        // Resto de los datos...
+      ];
+
+      // Convertir los datos en un array que pueda ser entendido por Google Charts
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Name');
+      data.addColumn('number', 'Value');
+
+      for (var i = 0; i < jsonData.length; i++) {
+        data.addRow([jsonData[i].name, jsonData[i].value]);
+      }
+
+      // Configuración del gráfico circular
+      var pieOptions = {
+        title: 'Products by Value'
+      };
+
+      // Dibujar el gráfico circular en el elemento con id 'piechart'
+      var pieChart = new google.visualization.PieChart(document.getElementById('piechart'));
+      pieChart.draw(data, pieOptions);
+
+      // Configuración del gráfico de barras
+      var barOptions = {
+        title: 'Products by Value',
+        legend: { position: 'none' }
+      };
+
+      // Dibujar el gráfico de barras en el elemento con id 'barchart'
+      var barChart = new google.visualization.BarChart(document.getElementById('barchart'));
+      barChart.draw(data, barOptions);
+    }
+  </script>
+</body>
+</html>
